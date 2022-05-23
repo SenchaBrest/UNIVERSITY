@@ -1,0 +1,10 @@
+A*********
+AB********
+ABC*******
+ABCD******
+ABCDE*****
+ABCDEF****
+ABCDEFG***
+ABCDEFGH**
+ABCDEFGHI*
+ABCDEFGHIJ
