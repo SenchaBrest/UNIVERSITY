@@ -138,26 +138,7 @@ void DisplayMatrix(int* Pointer, unsigned n, unsigned m) {
         }
         printf("\n"); 
     } 
-} 
-
-int* SimpleMatrix(unsigned n, unsigned m) { 
-    unsigned i; 
-    int* Pointer = (int*)malloc(sizeof(int)*n*m); 
-    for( i = 0; i < n * m; i++) { 
-        *(Pointer + i) = 0; 
-    } 
-    return Pointer; 
-} 
-
-int SumElemMatrix ( int* Pointer, unsigned n, unsigned m) { 
-    int s = 0; 
-    unsigned i; 
-    for ( i = 0; i < n * m; i++ ) { 
-        s = s + *(Pointer + i); 
-    } 
-
-    return s; 
-} 
+}  
 
 void WorkFile(char* String1, char* String2, char* Mode, unsigned n, unsigned m, unsigned l) { 
     int* Pointer1 = FreeMemory(n, m); 
