@@ -1,7 +1,7 @@
 import numpy as np
 import numpy.random as rand
 import matplotlib.pyplot as plt
-
+from tqdm import tqdm
 
 COUNT_OF_LAB = 7
 SEMESTER_DURATION = 120
@@ -19,18 +19,18 @@ E0 = E(9)
 if __name__=="__main__":
     best_couple = []
     surrendered_labs = 0
-    for day in range(SEMESTER_DURATION):
+    for day in tqdm(range(SEMESTER_DURATION)):
         for couple in COUPLES:
             if rand.uniform(0, 1) < N(couple) * E(couple) * (1 / N0) * (1 / E0):
                 if rand.uniform(0, 1) < 0.8:
                     surrendered_labs += 1
-                best_couple.append(couple)
+                    best_couple.append(couple)
             if surrendered_labs == COUNT_OF_LAB:
                 print(f'U need {day + 1} days to surrender 7 labs.')
                 print(f'U should come in {np.mean(best_couple) - 0.67} of hours.') 
                 break
         if surrendered_labs == COUNT_OF_LAB:
-                break
+            break
 
 # x_plt = np.arange(9, 21, 0.0001)
 # f_plt = [E(x) * 1 / E(9) for x in x_plt]
@@ -44,7 +44,7 @@ if __name__=="__main__":
 fig, ax = plt.subplots()
 ax.grid(True)
 
-day = [i for i in range(len(best_couple))]
+day = [i for i in range(1, len(best_couple) + 1)]
 
 ax.bar(day, best_couple, color='red')
 plt.show()
