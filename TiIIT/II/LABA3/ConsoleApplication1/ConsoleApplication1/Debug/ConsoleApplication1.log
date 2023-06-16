@@ -1,5 +1,0 @@
-﻿  ConsoleApplication1.cpp
-D:\University\My\II\TiIIT\LABA3\ConsoleApplication1\ConsoleApplication1\ConsoleApplication1.cpp(10,48): warning C4244: return: преобразование "double" в "float", возможна потеря данных
-D:\University\My\II\TiIIT\LABA3\ConsoleApplication1\ConsoleApplication1\ConsoleApplication1.cpp(20,44): warning C4305: инициализация: усечение из "double" в "float"
-D:\University\My\II\TiIIT\LABA3\ConsoleApplication1\ConsoleApplication1\ConsoleApplication1.cpp(20,53): warning C4305: инициализация: усечение из "double" в "float"
-  ConsoleApplication1.vcxproj -> D:\University\My\II\TiIIT\LABA3\ConsoleApplication1\Debug\ConsoleApplication1.exe
