@@ -1,7 +1,0 @@
-﻿  ConsoleApplication3.cpp
-D:\Code\C++\LAB_OAIP_ORDERS\ConsoleApplication3\ConsoleApplication3\ConsoleApplication3.cpp(29,36): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
-D:\Code\C++\LAB_OAIP_ORDERS\ConsoleApplication3\ConsoleApplication3\ConsoleApplication3.cpp(30,36): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
-D:\Code\C++\LAB_OAIP_ORDERS\ConsoleApplication3\ConsoleApplication3\ConsoleApplication3.cpp(31,38): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
-D:\Code\C++\LAB_OAIP_ORDERS\ConsoleApplication3\ConsoleApplication3\ConsoleApplication3.cpp(32,37): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
-D:\Code\C++\LAB_OAIP_ORDERS\ConsoleApplication3\ConsoleApplication3\ConsoleApplication3.cpp(33,37): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
-  ConsoleApplication3.vcxproj -> D:\Code\C++\LAB_OAIP_ORDERS\ConsoleApplication3\Debug\ConsoleApplication3.exe
