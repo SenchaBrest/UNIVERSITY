@@ -1,17 +1,31 @@
 use std::io::{self, BufRead, Write, Read};
 use std::net::{TcpStream, Shutdown};
 use std::str;
-use std::fs::File;
+use std::fs::{OpenOptions};
 use std::time::SystemTime;
+use chrono::{Local, Datelike, Timelike};
 
 const DEFAULT_FILENAME: &str = "log.txt";
 
 fn write_to_file(content: &str) -> io::Result<()> {
-    let mut file = File::create(DEFAULT_FILENAME)?;
     let current_time = SystemTime::now();
-    let time_str = format!("{:?}", current_time);
+    let local_time: chrono::DateTime<Local> = current_time.into();
 
-    let line = format!("{}\t{}", time_str, content);
+    let year = local_time.year();
+    let month = local_time.month();
+    let day = local_time.day();
+    let hour = local_time.hour();
+    let minute = local_time.minute();
+    let second = local_time.second();
+
+    let time_str = format!("{}-{:02}-{:02} {:02}:{:02}:{:02}", year, month, day, hour, minute, second);
+    let line = format!("{}\t{}\n", time_str, content);
+
+    let mut file = OpenOptions::new()
+        .create(true)
+        .append(true)
+        .open(DEFAULT_FILENAME)?;
+
     file.write_all(line.as_bytes())?;
 
     Ok(())
@@ -23,7 +37,7 @@ fn main() -> io::Result<()> {
     let mut current_port: Option<u16> = None;
     let mut stream: Option<TcpStream> = None;
 
-    loop {
+    'main_loop: loop {
         let stdin = io::stdin();
         let mut reader = stdin.lock();
         let mut buffer = String::new();
@@ -35,7 +49,7 @@ fn main() -> io::Result<()> {
 
             if buffer.trim() == "quit" {
                 println!("Exit...");
-                if let Some(mut s) = stream.take() {
+                if let Some(s) = stream.take() {
                     s.shutdown(Shutdown::Both)?;
                 }
                 return Ok(());
@@ -54,7 +68,7 @@ fn main() -> io::Result<()> {
                             current_port = Some(port);
                             println!("Connection to {}:{}...", new_server_addr, port);
 
-                            if let Some(mut s) = stream.take() {
+                            if let Some(s) = stream.take() {
                                 s.shutdown(Shutdown::Both)?;
                             }
 
@@ -62,9 +76,11 @@ fn main() -> io::Result<()> {
                                 Ok(s) => {
                                     stream = Some(s);
 
-                                    let line = format!("CONNECTED to {}:{}...", new_server_addr, port);
+                                    let line = format!("CONNECTED to {}:{}",
+                                                       new_server_addr,
+                                                       port);
                                     match write_to_file(line.as_str()) {
-                                        Ok(_) => println!("The data was successfully written to the file."),
+                                        Ok(_) => {},
                                         Err(e) => eprintln!("Error writing to file: {}", e),
                                     }
                                 }
@@ -88,7 +104,7 @@ fn main() -> io::Result<()> {
             buffer.clear();
         }
 
-        if let Some(mut s) = stream.as_mut() {
+        if let Some(s) = stream.as_mut() {
             loop {
                 reader.read_line(&mut buffer)?;
 
@@ -98,16 +114,18 @@ fn main() -> io::Result<()> {
                     break;
                 } else if buffer.starts_with("disconnect") {
                     println!("Breaking connection...");
-                    if let Some(mut s) = stream.take() {
+                    if let Some(s) = stream.take() {
                         s.shutdown(Shutdown::Both)?;
                     }
 
-                    let line = format!("DISCONNECTED from {:#?}:{:#?}...", current_server_addr, current_port);
+                    let line = format!("DISCONNECTED from {:#?}:{:#?}",
+                                       current_server_addr.unwrap_or_default(),
+                                       current_port.unwrap_or_default());
                     match write_to_file(line.as_str()) {
-                        Ok(_) => println!("The data was successfully written to the file."),
+                        Ok(_) => {},
                         Err(e) => eprintln!("Error writing to file: {}", e),
                     }
-                    break;
+                    break 'main_loop;
                 }
 
                 s.write_all(buffer.as_bytes())?;
@@ -121,16 +139,24 @@ fn main() -> io::Result<()> {
 
                         let line = format!("S=>C: {}", response);
                         match write_to_file(line.as_str()) {
-                            Ok(_) => println!("The data was successfully written to the file."),
+                            Ok(_) => {},
                             Err(e) => eprintln!("Error writing to file: {}", e),
                         }
                     }
                     Ok(_) | Err(_) => {
                         println!("Connection lost");
-                        break;
+                        let line = format!("DISCONNECTED from {:#?}:{:#?}",
+                                           current_server_addr.unwrap_or_default(),
+                                           current_port.unwrap_or_default());
+                        match write_to_file(line.as_str()) {
+                            Ok(_) => {},
+                            Err(e) => eprintln!("Error writing to file: {}", e),
+                        }
+                        break 'main_loop;
                     }
                 }
             }
         }
     }
+    Ok(())
 }

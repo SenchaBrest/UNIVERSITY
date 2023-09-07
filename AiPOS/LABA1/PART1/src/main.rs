@@ -20,12 +20,16 @@ fn handle_client(mut stream: TcpStream) {
             stream.shutdown(std::net::Shutdown::Both).unwrap();
             break;
         }
+        else if input_str.contains(".") {
+            let words: Vec<&str> = input_str.split_whitespace().collect();
+            let reversed_words: Vec<&str> = words.iter().rev().copied().collect();
+            let reversed_str = reversed_words.join(" ");
+            stream.write_all(reversed_str.as_bytes()).unwrap();
 
-        let words: Vec<&str> = input_str.split_whitespace().collect();
-        let reversed_words: Vec<&str> = words.iter().rev().copied().collect();
-        let reversed_str = reversed_words.join(" ");
-
-        stream.write_all(reversed_str.as_bytes()).unwrap();
+        }
+        else {
+            stream.write_all(input_str.as_bytes()).unwrap();
+        }
     }
 }
 
