@@ -1,0 +1,19 @@
+[package]
+name = "LABA2"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+block-buffer = "0.9"
+digest = "0.9"
+opaque-debug = "0.3"
+
+[dev-dependencies]
+digest = { version = "0.9", features = ["dev"] }
+hex-literal = "0.3"
+
+[features]
+default = ["std"]
+std = ["digest/std"]
+
+
