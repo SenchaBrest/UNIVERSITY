@@ -2,3 +2,4 @@
 *.lock
 *target
 *__pycache__
+*.sqlite
