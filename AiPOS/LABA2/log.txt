@@ -1,0 +1,57 @@
+2023-10-03 10:26:44	S=>C: 1
+2023-10-03 10:26:46	S=>C: 2
+2023-10-03 10:26:49	S=>C: 1.
+2023-10-03 10:26:52	S=>C: 123.
+2023-10-03 10:26:55	S=>C: 23. 12
+2023-10-03 10:26:59	S=>C: Breaking connection...
+
+2023-10-03 10:30:49	CONNECTED to 127.0.0.1:6667
+2023-10-03 10:30:54	S=>C: q
+2023-10-03 10:30:57	S=>C: q w/
+2023-10-03 10:31:01	S=>C: w. qw
+2023-10-03 10:31:03	S=>C: Breaking connection...
+
+2023-10-03 10:33:34	CONNECTED to 127.0.0.1:6667
+2023-10-03 10:33:37	S=>C: 1
+2023-10-03 10:33:42	S=>C: Breaking connection...
+
+2023-10-03 10:35:01	CONNECTED to 127.0.0.1:6667
+2023-10-03 10:35:09	DISCONNECTED from 127.0.0.1:6667
+2023-10-03 10:35:52	CONNECTED to 127.0.0.1:6667
+2023-10-03 10:35:56	S=>C: 1
+2023-10-03 10:36:04	S=>C: Breaking connection...
+
+2023-10-03 10:36:08	S=>C: d
+2023-10-03 10:36:15	S=>C: d
+2023-10-03 10:37:26	CONNECTED to 127.0.0.1:6667
+2023-10-03 10:37:29	S=>C: Breaking connection...
+
+2023-10-03 10:40:21	CONNECTED to 127.0.0.1:6667
+2023-10-03 10:40:26	S=>C: Breaking connection...
+
+2023-10-03 10:42:44	CONNECTED to 127.0.0.1:6667
+2023-10-03 10:42:49	DISCONNECTED from 127.0.0.1:6667
+2023-10-03 10:48:29	CONNECTED to 127.0.0.1:6667
+2023-10-03 10:48:34	S=>C: Breaking connection...
+
+2023-10-03 10:52:46	CONNECTED to 127.0.0.1:6667
+2023-10-03 10:52:52	S=>C: ping
+2023-10-03 10:53:57	S=>C: Breaking connection...
+
+2023-10-03 10:56:25	CONNECTED to 127.0.0.1:6667
+2023-10-03 10:56:30	S=>C: Breaking connection...
+
+Connected to server at 127.0.0.1:12345	Connected at: 2023-10-17 08:55:08.164029
+Connected to server at 127.0.0.1:12345	Connected at: 2023-10-17 08:56:42.764730
+Connected to server at 127.0.0.1:12345	Connected at: 2023-10-17 08:59:11.202198
+Connected to server at 127.0.0.1:12345	Connected at: 2023-10-17 09:01:04.160849
+Received from server: q	Received at: 2023-10-17 09:01:19.822859
+Connected to server at 127.0.0.1:12345	Connected at: 2023-10-17 09:01:57.916612
+Received from server: q.	Received at: 2023-10-17 09:02:06.119093
+Received from server: qwe qw q	Received at: 2023-10-17 09:02:15.627517
+Received from server: The session has ended.	Received at: 2023-10-17 09:02:19.907741
+Received from server: q	Received at: 2023-10-17 09:02:23.734265
+Connected to server at 127.0.0.1:12345	Connected at: 2023-10-17 10:16:28.741958
+Received from server: qwe qwe	Received at: 2023-10-17 10:17:06.836188
+Connected to server at 127.0.0.1:12346	Connected at: 2023-10-17 11:59:40.515150
+Received from server: 5 4 3 2 1	Received at: 2023-10-17 11:59:56.543343

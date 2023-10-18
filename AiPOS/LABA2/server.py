@@ -1,28 +1,29 @@
 import socket
 
-def handle_client(data, client_address, server_socket):
-    input_str = data.decode('utf-8')
+HOST = '127.0.0.1'
+PORT = 12346
 
-    if ".." in input_str:
-        server_socket.sendto(b"Breaking connection...\n", client_address)
-    elif "." in input_str:
-        words = input_str.split()
-        reversed_words = list(reversed(words))
-        reversed_str = ' '.join(reversed_words)
-        server_socket.sendto(reversed_str.encode('utf-8'), client_address)
+server_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+server_socket.bind((HOST, PORT))
+
+print(f"Server listening on {HOST}:{PORT}")
+
+while True:
+    data, client_address = server_socket.recvfrom(1024)
+
+    if not data:
+        continue
+
+    received_data = data.decode()
+    print(f"Received: {received_data}")
+
+    if ".." in received_data:
+        response = "The session has ended."
+        server_socket.close()
+        break
     else:
-        server_socket.sendto(input_str.encode('utf-8'), client_address)
+        words = received_data.strip(".").split()
+        reversed_sentence = " ".join(reversed(words))
+        response = reversed_sentence
 
-def main():
-    server_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    server_socket.bind(("127.0.0.1", 6666))
-
-    print("UDP SERVER DEMO - Listening on port 6666")
-
-    while True:
-        data, client_address = server_socket.recvfrom(1024)
-        print("Received data from:", client_address)
-        handle_client(data, client_address, server_socket)
-
-if __name__ == "__main__":
-    main()
+    server_socket.sendto(response.encode(), client_address)

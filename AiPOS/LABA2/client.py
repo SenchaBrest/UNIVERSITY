@@ -1,69 +1,96 @@
 import socket
-from datetime import datetime
+import threading
+import datetime
+import readchar
 
-DEFAULT_FILENAME = "log.txt"
 
-def write_to_file(content):
-    current_time = datetime.now()
-    time_str = current_time.strftime("%Y-%m-%d %H:%M:%S")
-    line = f"{time_str}\t{content}\n"
+def receive_messages(client_socket):
+    while True:
+        data, server_address = client_socket.recvfrom(1024)
+        if not data:
+            with open("log.txt", "a") as log:
+                log.write(
+                    f"Disconnecting from the current server..."
+                    f"\tDisconnected at: {datetime.datetime.now()}\n")
+            print("DISCONNECTED")
+            break
+        message = data.decode('utf-8')
+        print(f"Received from server: {message}")
+        log_message = f"Received from server: {message}" \
+                      f"\tReceived at: {datetime.datetime.now()}"
+        with open("log.txt", "a") as log:
+            log.write(log_message + "\n")
 
-    with open(DEFAULT_FILENAME, "a") as file:
-        file.write(line)
+
+def connect_to_server(server_host, server_port):
+    client_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    client_socket.connect((server_host, server_port))
+    log_message = f"Connected to server at {server_host}:{server_port}" \
+                  f"\tConnected at: {datetime.datetime.now()}"
+    print("CONNECTED")
+    with open("log.txt", "a") as log:
+        log.write(log_message + "\n")
+
+    return client_socket
+
+
+def custom_input():
+    input_text = ""
+    while True:
+        char = readchar.readchar()
+        if char == readchar.key.ENTER:  # Enter key
+            break
+        elif char == "@":  # @ key
+            break
+        elif char == readchar.key.CTRL_C:  # Handle Ctrl+C as an interruption
+            raise KeyboardInterrupt
+        elif char == readchar.key.CTRL_D:  # Handle Ctrl+D as an EOF
+            raise EOFError
+        else:
+            input_text += char
+            print(char, end='', flush=True)
+
+    print("")
+    return input_text
+
 
 def main():
-    print("UDP DEMO CLIENT")
+    client_socket = None
 
-    current_server_addr = None
-    current_port = None
-    client_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-
+    server_host, server_port = None, None
     while True:
-        buffer = input("Connect to server. Use 'connect <address> <port>' or 'quit' to exit.\n")
+        user_input = custom_input()
 
-        if buffer.strip() == "quit":
-            print("Exit...")
-            break
-        elif buffer.startswith("disconnect"):
-            print("You are not connected.")
-        elif buffer.startswith("connect"):
-            parts = buffer.split()
-            if len(parts) != 3:
-                print("Invalid command format. Use 'connect <address> <port>'.")
+        if user_input.startswith("connect"):
+            _, server_host, server_port = user_input.split()
+            server_port = int(server_port)
+            if client_socket:
+                with open("log.txt", "a") as log:
+                    log.write(
+                        f"Disconnecting from the current server..."
+                        f"\tDisconnected at: {datetime.datetime.now()}\n")
+                print("DISCONNECTED")
+                client_socket.close()
+            client_socket = connect_to_server(server_host, server_port)
+            receive_thread = threading.Thread(target=receive_messages, args=(client_socket,))
+            receive_thread.start()
+
+        elif user_input.startswith("disconnect"):
+            if client_socket:
+                with open("log.txt", "a") as log:
+                    log.write(
+                        f"Disconnecting from the current server..."
+                        f"\tDisconnected at: {datetime.datetime.now()}\n")
+                print("DISCONNECTED")
+                client_socket.close()
+                client_socket = None
             else:
-                new_server_addr = parts[1]
-                new_port = parts[2]
+                print("Not currently connected to a server.")
 
-                try:
-                    new_port = int(new_port)
-                except ValueError:
-                    print("Invalid port format. Use 'connect <address> <port>'.")
-                    continue
+        elif client_socket:
+            server_address = (server_host, server_port)
+            client_socket.sendto(user_input.encode('utf-8'), server_address)
 
-                current_server_addr = new_server_addr
-                current_port = new_port
-                print(f"Connection to {new_server_addr}:{new_port}...")
-
-        else:
-            print("You must first connect with 'connect <address> <port>'.")
-            continue
-
-        while True:
-            buffer = input()
-            if buffer.strip() == "quit":
-                print("Exit...")
-                break
-            elif buffer.startswith("disconnect"):
-                print("Breaking connection...")
-                current_server_addr = None
-                current_port = None
-                break
-
-            client_socket.sendto(buffer.encode('utf-8'), (current_server_addr, current_port))
-            response, _ = client_socket.recvfrom(1024)
-            response_str = response.decode('utf-8')
-            print(f"S=>C: {response_str}")
-            write_to_file(f"S=>C: {response_str}")
 
 if __name__ == "__main__":
     main()
