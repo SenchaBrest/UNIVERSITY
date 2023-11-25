@@ -1,5 +1,5 @@
 fn main() {
-    let text = String::from("Text with vowels and spaces");
+    let text = String::from("Text? with vowels and spaces");
 
     let char_collection: Vec<char> = text.chars().collect();
 
