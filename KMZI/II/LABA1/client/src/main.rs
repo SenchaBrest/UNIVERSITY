@@ -1,14 +1,14 @@
 mod eke;
-use eke::{generate_prime, generate_private_key, compute_public_key, compute_shared_secret};
+use eke::{generate_private_key, compute_public_key, compute_shared_secret};
 
 use num_bigint::BigUint;
-use std::io::{Read, Write};
+use std::io::{self, BufRead, Write, Read};
 use std::net::TcpStream;
-use std::thread;
 use byteorder::{BigEndian, ReadBytesExt, WriteBytesExt};
+use rc4::Cipher;
 
 fn main() {
-    match TcpStream::connect("127.0.0.1:8080") {
+    match TcpStream::connect("127.0.0.1:8081") {
         Ok(mut server) => {
             let prime = receive_biguint(&mut server);
             let generator = receive_biguint(&mut server);
@@ -23,9 +23,9 @@ fn main() {
             let shared_secret = compute_shared_secret(&server_public_key, &prime, &client_private_key);
             println!("Shared secret: {}", shared_secret);
 
-            thread::spawn(move || {
-                handle_server(&mut server);
-            });
+            let mut rc4 = rc4::Cipher::new(&shared_secret.to_bytes_be()).unwrap();
+
+            handle_server(&mut rc4, &mut server);
         }
         Err(e) => {
             eprintln!("Error connecting to server: {}", e);
@@ -33,8 +33,18 @@ fn main() {
     }
 }
 
-fn handle_server(server: &mut TcpStream) {
-    // code
+fn handle_server(rc4: &mut Cipher, server: &mut TcpStream) {
+    let stdin = io::stdin();
+    let mut reader = stdin.lock();
+    let mut buffer = String::new();
+    loop {
+        reader.read_line(&mut buffer).expect("Error reading line from console");
+        let mut dst: Vec<u8> = vec![0; buffer.len()];
+        rc4.xor(buffer.as_bytes(), &mut dst);
+
+        server.write_all(&dst).expect("Error sending data");
+        buffer.clear();
+    }
 }
 
 fn send_biguint(stream: &mut dyn Write, num: &BigUint) {
