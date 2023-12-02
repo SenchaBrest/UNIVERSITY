@@ -219,5 +219,3 @@ class OneClassSVM:
         pred[pred == 0] = -1
         return pred
 
-    def score(self, X, y):
-        raise NotImplementedError
