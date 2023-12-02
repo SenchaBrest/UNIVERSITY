@@ -1,32 +1,36 @@
 import tkinter as tk
 
-def inflate_ball():
-    global radius, ball, centerY, shadow
-    if radius < 50:  # Ограничение максимального размера шара
-        radius += 1
-        centerY -= 1  # Поднимаем центр шара вверх на 1
-        canvas.delete(ball)  # Удаляем предыдущий шар
-        canvas.delete(shadow)  # Удаляем предыдущую тень
-        ball = canvas.create_oval(100 - radius, centerY - radius, 100 + radius, centerY + radius, fill="#4B0082", outline="")  # Удаление обводки
-        shadow = canvas.create_oval(100 - radius, centerY + radius, 100 + radius, centerY + radius + 5, fill="lightgray", outline="")  # Удаление обводки
-        canvas.update()  # Обновляем холст
-        canvas.after(100, inflate_ball)
 
-# Создание основного окна
-window = tk.Tk()
-window.title("Надувание шарика")
+class InflatableBallApp:
+    def __init__(self, master):
+        self.master = master
+        master.title("5")
 
-# Создание холста для отрисовки шара
-canvas = tk.Canvas(window, width=200, height=400)
-canvas.pack()
+        self.radius = 10
+        self.centerY = 100
 
-radius = 10  # Начальный размер шара
-centerY = 200  # Начальное положение центра шара
-ball = canvas.create_oval(100 - radius, centerY - radius, 100 + radius, centerY + radius, fill="#4B0082", outline="")  # Удаление обводки
-shadow = canvas.create_oval(100 - radius, centerY + radius, 100 + radius, centerY + radius + 5, fill="lightgray", outline="")  # Удаление обводки
+        self.canvas = tk.Canvas(master, width=200, height=150)
+        self.canvas.pack()
 
-# Кнопка для начала надувания
-inflate_button = tk.Button(window, text="Надуть шарик", command=inflate_ball)
-inflate_button.pack()
+        self.ball = self.canvas.create_oval(100 - self.radius, self.centerY - self.radius,
+                                            100 + self.radius, self.centerY + self.radius,
+                                            fill="#FFC0CB", outline="")
 
-window.mainloop()
+        self.inflate_button = tk.Button(master, text="Надуть шарик", command=self.inflate_ball)
+        self.inflate_button.pack()
+
+    def inflate_ball(self):
+        if self.radius < 50:
+            self.radius += 1
+            self.centerY -= 1
+            self.canvas.delete(self.ball)
+            self.ball = self.canvas.create_oval(100 - self.radius, self.centerY - self.radius,
+                                                100 + self.radius, self.centerY + self.radius,
+                                                fill="#FFC0CB", outline="")
+            self.canvas.update()
+            self.canvas.after(100, self.inflate_ball)
+
+
+root = tk.Tk()
+app = InflatableBallApp(root)
+root.mainloop()
