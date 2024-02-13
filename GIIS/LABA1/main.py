@@ -31,6 +31,9 @@ class ImageViewerApp(QWidget):
         self.load_button = QPushButton('Load Image', self)
         self.load_button.clicked.connect(self.load_image)
 
+        self.use_button = QPushButton('Use', self)
+        self.use_button.clicked.connect(self.use_function)
+
         self.save_button = QPushButton('Save Image', self)
         self.save_button.clicked.connect(self.save_image)
 
@@ -46,13 +49,15 @@ class ImageViewerApp(QWidget):
         layout.addWidget(self.image_label1, 0, 0, 1, 2)
         layout.addWidget(self.image_label2, 1, 0, 1, 2)
         layout.addWidget(self.load_button, 2, 0, 1, 1)
-        layout.addWidget(self.save_button, 2, 1, 1, 1)
-        layout.addWidget(self.tab_widget, 0, 2, 3, 1)
+        layout.addWidget(self.use_button, 2, 1, 1, 1)
+        layout.addWidget(self.save_button, 2, 2, 1, 1)
+        layout.addWidget(self.tab_widget, 0, 3, 3, 1)
         layout.addWidget(self.progress_bar, 3, 0, 1, 5)
 
         layout.setColumnStretch(0, 1)
         layout.setColumnStretch(1, 1)
         layout.setColumnStretch(2, 1)
+        layout.setColumnStretch(3, 2)
         layout.setRowStretch(0, 1)
         layout.setRowStretch(1, 1)
         layout.setRowStretch(2, 1)
@@ -104,7 +109,7 @@ class ImageViewerApp(QWidget):
         layout_tab2.addWidget(self.y_slider_cross_label, 1, 1, Qt.AlignCenter)
         layout_tab2.addWidget(self.size_slider, 2, 1, Qt.AlignCenter)
         layout_tab2.addWidget(self.size_slider_label, 2, 2)
-        layout_tab2.addWidget(self.recover_button, 3, 0, 3, 3)  # Уменьшил пропорцию выделенного места для кнопки
+        layout_tab2.addWidget(self.recover_button, 3, 0, 3, 3)
         self.tab2.setLayout(layout_tab2)
 
     def make_slider(self, situation, min, max, x_size, y_size, function):
@@ -125,6 +130,18 @@ class ImageViewerApp(QWidget):
                                                    options=options)
         if file_name:
             self.file_name = file_name
+            self.pixmap = QPixmap(self.file_name)
+            self.label_size = self.image_label1.size()
+            self.scaled_pixmap = self.pixmap.scaled(self.label_size, aspectRatioMode=Qt.KeepAspectRatio)
+            self.image_label1.setPixmap(self.scaled_pixmap)
+            self.image_label2.setPixmap(self.scaled_pixmap)
+
+    def use_function(self):
+        if self.edit_im:
+            temp_file_name = "temp.jpg"
+            self.edit_im.save(temp_file_name)
+
+            self.file_name = temp_file_name
             self.pixmap = QPixmap(self.file_name)
             self.label_size = self.image_label1.size()
             self.scaled_pixmap = self.pixmap.scaled(self.label_size, aspectRatioMode=Qt.KeepAspectRatio)
