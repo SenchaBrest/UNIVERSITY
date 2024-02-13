@@ -46,8 +46,8 @@ class ImageViewerApp(QWidget):
         self.init_tab_widgets()
 
         layout = QGridLayout(self)
-        layout.addWidget(self.image_label1, 0, 0, 1, 2)
-        layout.addWidget(self.image_label2, 1, 0, 1, 2)
+        layout.addWidget(self.image_label1, 0, 0, 1, 3)
+        layout.addWidget(self.image_label2, 1, 0, 1, 3)
         layout.addWidget(self.load_button, 2, 0, 1, 1)
         layout.addWidget(self.use_button, 2, 1, 1, 1)
         layout.addWidget(self.save_button, 2, 2, 1, 1)
@@ -137,16 +137,21 @@ class ImageViewerApp(QWidget):
             self.image_label2.setPixmap(self.scaled_pixmap)
 
     def use_function(self):
-        if self.edit_im:
-            temp_file_name = "temp.jpg"
-            self.edit_im.save(temp_file_name)
+        if self.file_name is not None:
+            if self.edit_im:
+                temp_file_name = "temp.jpg"
+                self.edit_im.save(temp_file_name)
 
-            self.file_name = temp_file_name
-            self.pixmap = QPixmap(self.file_name)
-            self.label_size = self.image_label1.size()
-            self.scaled_pixmap = self.pixmap.scaled(self.label_size, aspectRatioMode=Qt.KeepAspectRatio)
-            self.image_label1.setPixmap(self.scaled_pixmap)
-            self.image_label2.setPixmap(self.scaled_pixmap)
+                self.file_name = temp_file_name
+                self.pixmap = QPixmap(self.file_name)
+                self.label_size = self.image_label1.size()
+                self.scaled_pixmap = self.pixmap.scaled(self.label_size, aspectRatioMode=Qt.KeepAspectRatio)
+                self.image_label1.setPixmap(self.scaled_pixmap)
+                self.image_label2.setPixmap(self.scaled_pixmap)
+            else:
+                self.call_message_box("Error", "Edit photo first.", QMessageBox.Critical)
+        else:
+            self.call_message_box("Error", "Choose photo first.", QMessageBox.Critical)
 
     def save_image(self):
         if self.file_name is not None:
