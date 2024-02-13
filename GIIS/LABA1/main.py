@@ -61,12 +61,12 @@ class ImageViewerApp(QWidget):
         self.tab_widget = QTabWidget(self)
         self.tab1 = QWidget()
         self.tab2 = QWidget()
-        self.tab_widget.addTab(self.tab1, 'Make noise photo')
-        self.tab_widget.addTab(self.tab2, 'Recover photo')
+        self.tab_widget.addTab(self.tab2, 'Make noise photo')
+        self.tab_widget.addTab(self.tab1, 'Recover photo')
 
         self.noise_slider = self.make_slider(Qt.Horizontal, 0, 10, 500, 20, self.noise_value_changed)
         self.noise_value = 0
-        self.noise_slider_label = QLabel(str(self.noise_slider.value()))
+        self.noise_slider_label = QLabel("Noise Level: " + str(self.noise_slider.value()))
         self.noise_slider_label.setAlignment(Qt.AlignCenter)
 
         self.noise_button = QPushButton('Make noise', self.tab1)
@@ -80,18 +80,18 @@ class ImageViewerApp(QWidget):
 
         self.x_slider_cross = self.make_slider(Qt.Horizontal, 0, 1, 500, 20, self.horizontal_slider_changed)
         self.x_value = 0
-        self.x_slider_cross_label = QLabel(str(self.x_slider_cross.value()))
+        self.x_slider_cross_label = QLabel("X Position: " + str(self.x_slider_cross.value()))
         self.x_slider_cross_label.setAlignment(Qt.AlignCenter)
 
         self.y_slider_cross = self.make_slider(Qt.Vertical, 0, 1, 20, 500, self.vertical_slider_changed)
         self.y_value = 0
         self.y_slider_cross.setInvertedAppearance(True)
-        self.y_slider_cross_label = QLabel(str(self.y_slider_cross.value()))
+        self.y_slider_cross_label = QLabel("Y Position: " + str(self.y_slider_cross.value()))
         self.y_slider_cross_label.setAlignment(Qt.AlignCenter)
 
         self.size_slider = self.make_slider(Qt.Horizontal, 1, 15, 500, 20, self.size_slider_changed)
         self.size_value = 3
-        self.size_slider_label = QLabel(str(3))
+        self.size_slider_label = QLabel("Size: " + str(3))
         self.size_slider_label.setAlignment(Qt.AlignCenter)
 
         self.recover_button = QPushButton('Recover', self.tab2)
@@ -146,7 +146,7 @@ class ImageViewerApp(QWidget):
             self.call_message_box("Error", "Choose photo first.", QMessageBox.Critical)
 
     def noise_value_changed(self, value):
-        self.noise_slider_label.setText(str(value))
+        self.noise_slider_label.setText("Noise Level: " + str(value))
         self.noise_value = value
 
     def make_noise(self):
@@ -173,16 +173,16 @@ class ImageViewerApp(QWidget):
             self.call_message_box("Error", "Choose photo first.", QMessageBox.Critical)
 
     def horizontal_slider_changed(self, value):
-        self.x_slider_cross_label.setText(str(value))
+        self.x_slider_cross_label.setText("X Position: " + str(value))
         self.x_value = value
 
     def vertical_slider_changed(self, value):
-        self.y_slider_cross_label.setText(str(value))
+        self.y_slider_cross_label.setText("Y Position: " + str(value))
         self.y_value = value
 
     def size_slider_changed(self, value):
         value = 2 * value + 1
-        self.size_slider_label.setText(str(value))
+        self.size_slider_label.setText("Size: " + str(value))
         self.y_slider_cross.setRange(0, value - 1)
         self.y_slider_cross.setValue(0)
         self.x_slider_cross.setRange(0, value - 1)
