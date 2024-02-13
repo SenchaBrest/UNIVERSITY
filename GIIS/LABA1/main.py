@@ -22,8 +22,8 @@ class ImageViewerApp(QWidget):
         self.init_ui()
 
     def init_ui(self):
-        self.setWindowTitle('Image Viewer')
-        self.setFixedSize(1200, 800)
+        self.setWindowTitle('NOISE CANCELLER')
+        self.setFixedSize(1000, 800)
 
         self.image_label1 = QLabel(self)
         self.image_label2 = QLabel(self)
@@ -52,7 +52,7 @@ class ImageViewerApp(QWidget):
 
         layout.setColumnStretch(0, 1)
         layout.setColumnStretch(1, 1)
-        layout.setColumnStretch(2, 2)
+        layout.setColumnStretch(2, 1)
         layout.setRowStretch(0, 1)
         layout.setRowStretch(1, 1)
         layout.setRowStretch(2, 1)
@@ -61,10 +61,10 @@ class ImageViewerApp(QWidget):
         self.tab_widget = QTabWidget(self)
         self.tab1 = QWidget()
         self.tab2 = QWidget()
-        self.tab_widget.addTab(self.tab2, 'Make noise photo')
-        self.tab_widget.addTab(self.tab1, 'Recover photo')
+        self.tab_widget.addTab(self.tab2, 'Recover photo')
+        self.tab_widget.addTab(self.tab1, 'Make noise photo')
 
-        self.noise_slider = self.make_slider(Qt.Horizontal, 0, 10, 500, 20, self.noise_value_changed)
+        self.noise_slider = self.make_slider(Qt.Horizontal, 0, 10, 250, 20, self.noise_value_changed)
         self.noise_value = 0
         self.noise_slider_label = QLabel("Noise Level: " + str(self.noise_slider.value()))
         self.noise_slider_label.setAlignment(Qt.AlignCenter)
@@ -75,21 +75,21 @@ class ImageViewerApp(QWidget):
         layout_tab1 = QGridLayout(self.tab1)
         layout_tab1.addWidget(self.noise_slider, 0, 1, Qt.AlignCenter)
         layout_tab1.addWidget(self.noise_slider_label, 0, 2)
-        layout_tab1.addWidget(self.noise_button, 3, 0, 3, 5)
+        layout_tab1.addWidget(self.noise_button, 1, 0, 1, 3)
         self.tab1.setLayout(layout_tab1)
 
-        self.x_slider_cross = self.make_slider(Qt.Horizontal, 0, 1, 500, 20, self.horizontal_slider_changed)
+        self.x_slider_cross = self.make_slider(Qt.Horizontal, 0, 1, 250, 20, self.horizontal_slider_changed)
         self.x_value = 0
         self.x_slider_cross_label = QLabel("X Position: " + str(self.x_slider_cross.value()))
         self.x_slider_cross_label.setAlignment(Qt.AlignCenter)
 
-        self.y_slider_cross = self.make_slider(Qt.Vertical, 0, 1, 20, 500, self.vertical_slider_changed)
+        self.y_slider_cross = self.make_slider(Qt.Vertical, 0, 1, 20, 250, self.vertical_slider_changed)
         self.y_value = 0
         self.y_slider_cross.setInvertedAppearance(True)
         self.y_slider_cross_label = QLabel("Y Position: " + str(self.y_slider_cross.value()))
         self.y_slider_cross_label.setAlignment(Qt.AlignCenter)
 
-        self.size_slider = self.make_slider(Qt.Horizontal, 1, 15, 500, 20, self.size_slider_changed)
+        self.size_slider = self.make_slider(Qt.Horizontal, 1, 15, 250, 20, self.size_slider_changed)
         self.size_value = 3
         self.size_slider_label = QLabel("Size: " + str(3))
         self.size_slider_label.setAlignment(Qt.AlignCenter)
@@ -104,7 +104,7 @@ class ImageViewerApp(QWidget):
         layout_tab2.addWidget(self.y_slider_cross_label, 1, 1, Qt.AlignCenter)
         layout_tab2.addWidget(self.size_slider, 2, 1, Qt.AlignCenter)
         layout_tab2.addWidget(self.size_slider_label, 2, 2)
-        layout_tab2.addWidget(self.recover_button, 3, 0, 3, 4)
+        layout_tab2.addWidget(self.recover_button, 3, 0, 3, 3)  # Уменьшил пропорцию выделенного места для кнопки
         self.tab2.setLayout(layout_tab2)
 
     def make_slider(self, situation, min, max, x_size, y_size, function):
