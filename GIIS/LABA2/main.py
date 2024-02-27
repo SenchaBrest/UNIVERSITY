@@ -1,7 +1,16 @@
-from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QLabel, QLineEdit, QTextEdit, QGridLayout, QMessageBox, \
-    QFileDialog
+from PyQt5.QtWidgets import (
+    QApplication,
+    QWidget,
+    QPushButton,
+    QLabel,
+    QLineEdit,
+    QTextEdit,
+    QGridLayout,
+    QMessageBox,
+    QFileDialog)
 from sql import AddressBookDatabase
 import os
+
 
 class SimpleAddressBook(QWidget):
     def __init__(self):
