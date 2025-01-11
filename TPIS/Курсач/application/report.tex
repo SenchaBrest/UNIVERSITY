@@ -1,0 +1,69 @@
+\documentclass[a4paper,14pt]{article}
+
+\usepackage{fvextra}
+\usepackage{verbatim}
+
+\DefineVerbatimEnvironment{Verbatim}{Verbatim}{breaklines=true}
+
+
+
+\usepackage{eso-pic}
+
+
+\usepackage{float}
+\usepackage{graphicx}
+
+\usepackage{listings}
+\usepackage{xcolor}
+
+\usepackage[utf8]{inputenc}
+\usepackage[english, russian]{babel}
+
+
+\setlength{\parindent}{12.5mm} 
+
+
+
+\lstset{
+    basicstyle=\ttfamily\small, % Шрифт и размер
+    breaklines=true,             % Перенос строк
+    breakatwhitespace=false,     % Перенос по пробелам
+    columns=flexible,            % Гибкий размер колонок
+%     frame=single,                % Рамка вокруг кода
+%     backgroundcolor=\color{lightgray!20}, % Цвет фона
+}
+
+
+\usepackage{calc}
+
+
+
+\usepackage[height=297mm, width=210mm, left=3cm, top=2cm, right=1cm, bottom=2cm]{geometry}
+
+
+\newcommand{\chipher}{
+        {\fontsize{16pt}{16pt}\selectfont  КР.ИИ-21.210560-3 81 00}
+}
+
+
+
+
+\begin{document}
+        \sloppy
+        
+        \pagestyle{empty}
+        \fontsize{14}{17.5}\selectfont    
+
+
+        \include{application/application_title}
+        \include{application/content}
+
+
+        \applicationTitlePage
+        \applicationContent
+        
+
+        
+
+    
+\end{document}

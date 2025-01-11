@@ -1,0 +1,14 @@
+\babel@toc {russian}{}\relax 
+\contentsline {section}{\numberline {1}\MakeUppercase []{Введение}}{4}{section.1}%
+\contentsline {section}{\numberline {2}\MakeUppercase []{Постановка задачи}}{5}{section.2}%
+\contentsline {section}{\numberline {3}\MakeUppercase []{Выбор и описание используемых инструментов}}{7}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Telegram}{7}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Flutter}{7}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}Firebase}{7}{subsection.3.3}%
+\contentsline {section}{\numberline {4}\MakeUppercase []{Разработка приложения}}{9}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Разработка структуры базы данных}{9}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Разработка логики работы системы}{10}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Разработка клиентской части приложения}{12}{subsection.4.3}%
+\contentsline {section}{\numberline {5}\MakeUppercase []{Тестирование приложения}}{13}{section.5}%
+\contentsline {section}{\numberline {6}\MakeUppercase []{Заключение}}{14}{section.6}%
+\contentsline {section}{\numberline {7}Список использованной литературы}{15}{section.7}%

@@ -1,0 +1,1 @@
+type input.asm | app.exe

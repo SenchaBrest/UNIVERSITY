@@ -1,0 +1,111 @@
+\documentclass[a4paper,14pt]{article}
+
+
+% настройка языка 
+\usepackage[utf8]{inputenc}
+\usepackage[english, russian]{babel}
+
+% настройка параметров листа
+\usepackage[height=297mm, width=210mm, left=3cm, top=2cm, right=1cm, bottom=3cm]{geometry}
+
+% добавление надписей и картинок на фон
+\usepackage{eso-pic}
+
+% получение кол-ва листов в файле
+\usepackage{lastpage}
+
+% для добавления надписей в рамку
+\usepackage[absolute,overlay]{textpos}
+
+% изменение формата номера figure
+\usepackage{amsmath}
+
+% настройка подписей к картинкам и таблицам
+\usepackage{caption}
+
+% добавляет отступ к 1-ому абзацу после раздела
+\usepackage{indentfirst} 
+
+% работа с таблицами
+\usepackage{tabularx}
+
+% добавление гиперссылок
+\usepackage{hyperref}
+
+% работа с изображениями
+\usepackage{graphicx}
+
+% работа с позицией для figure
+\usepackage{float}
+
+% добавление предварительных вычислений перед выводом в файл
+\usepackage{calc}
+
+% добавление картинок в качестве фона
+\usepackage{background}
+
+
+
+\captionsetup[figure]{name={Рисунок},labelsep=endash} 
+\captionsetup[table]{name={Таблица},labelsep=endash} 
+
+\numberwithin{figure}{section}
+\numberwithin{table}{section}
+
+\setlength{\parindent}{12.5mm} 
+
+
+
+\newcommand{\chipher}{
+        {\fontsize{16pt}{16pt}\selectfont  КП.ИИ-21.210560-40 03-01}
+}
+
+\newcommand{\theme}{Классификация текстов программного кода с использованием сверточных нейронных сетей}
+
+\newcommand{\student}{Кирилович А.А}
+
+\newcommand{\teacher}{Головко В.А.}
+
+
+\begin{document}
+
+        \backgroundsetup{
+                scale=3,
+                color=black,
+                opacity=0.1,
+                angle=0,
+                position=current page.south,
+                vshift=5cm,
+                hshift=0cm,
+                contents={}
+        }
+        \setcounter{page}{2}
+        \pagestyle{empty}
+
+
+        \renewcommand{\contentsname}{\centering \MakeUppercase{Содержание}}
+
+        \include{title_page/title_page}
+        \include{content_table/content_table}
+        \include{content/content}
+
+
+        \fontsize{14}{17.5}\selectfont    
+        
+        \titlePage
+
+        \contentTablePage
+
+        % Устанавливаем картинку на фон
+    \backgroundsetup{
+        scale=1,
+        color=black,
+        opacity=1,
+        angle=0,
+        position=current page.center,
+        vshift=0cm, hshift=0cm,
+        contents={\includegraphics[width=\paperwidth,height=\paperheight]{border/border11.png}}
+    }
+        \content
+    
+\end{document}

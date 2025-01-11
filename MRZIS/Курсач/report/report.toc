@@ -1,0 +1,11 @@
+\babel@toc {russian}{}\relax 
+\contentsline {section}{\numberline {1}\MakeUppercase []{Введение}}{4}{section.1}%
+\contentsline {section}{\numberline {2}\MakeUppercase []{Постановка задачи}}{5}{section.2}%
+\contentsline {section}{\numberline {3}\MakeUppercase []{Выбор и описание используемых инструментов}}{6}{section.3}%
+\contentsline {section}{\numberline {4}\MakeUppercase []{Обучение нейронной сети}}{7}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Подготовка данных}{7}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Выбор архитектуры нейронной сети}{8}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Обучение нейронной сети}{9}{subsection.4.3}%
+\contentsline {section}{\numberline {5}\MakeUppercase []{Тестирование нейронной сети}}{11}{section.5}%
+\contentsline {section}{\numberline {6}\MakeUppercase []{Заключение}}{13}{section.6}%
+\contentsline {section}{\numberline {7}Список использованной литературы}{14}{section.7}%
